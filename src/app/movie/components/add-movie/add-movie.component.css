@@ -1,0 +1,20 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+.form-container .form-field-flex {
+  display: flex;
+  gap: 20px;
+}
+.form-container .form-field-flex mat-form-field {
+  width: 100%;
+}
+.movie-form {
+  display: flex;
+  justify-content: center;
+}
+.form-btn {
+  display: flex;
+  justify-content: space-between;
+}

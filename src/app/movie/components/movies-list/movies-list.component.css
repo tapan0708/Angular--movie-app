@@ -1,0 +1,19 @@
+.movies-container {
+  padding: 2%;
+}
+.movies-table th,
+td {
+  padding: 12px 8px;
+}
+.movies-table tr {
+  vertical-align: middle;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.trow-border-bottom {
+  border-bottom: 1px solid rgb(219, 219, 219);
+}
+.activeLike {
+  color: #ff4081;
+}

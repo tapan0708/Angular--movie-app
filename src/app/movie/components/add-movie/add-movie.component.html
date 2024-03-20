@@ -1,0 +1,35 @@
+<form [formGroup]="addMovieForm" class="movie-form" (ngSubmit)="onFormSubmit()">
+    <div class="form-container">
+        <div class="form-field-flex">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Title of Movie</mat-label>
+                <input matInput placeholder="Enter title" formControlName="title">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Cast members</mat-label>
+                <input matInput placeholder="Enter Cast members" formControlName="castMember">
+            </mat-form-field>
+
+        </div>
+        <div class="form-field-flex">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Release date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Reviews</mat-label>
+                <input matInput placeholder="Enter Reviews" formControlName="reviews">
+            </mat-form-field>
+        </div>
+        <div class="form-btn">
+            <button type="button" mat-raised-button (click)="goToBack()">cancel</button>
+            <button type="button" *ngIf="!this.dialogData" mat-raised-button color="primary"
+                routerLink="/movies-list">View & Edit
+                Movie</button>
+            <button type="submit" mat-raised-button color="accent" [disabled]="!this.addMovieForm.valid">{{dialogData ?
+                'Update' : 'Add Movie'}}</button>
+        </div>
+    </div>
+</form>

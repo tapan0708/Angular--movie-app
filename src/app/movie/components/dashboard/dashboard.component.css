@@ -1,0 +1,12 @@
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  gap: 50px;
+}

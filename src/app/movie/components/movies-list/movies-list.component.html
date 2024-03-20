@@ -1,0 +1,78 @@
+<div class="movies-container">
+    <table class="table movies-table" matSort (matSortChange)="sortData($event)">
+        <thead>
+            <tr class="trow-border-bottom">
+                <th>#</th>
+                <th mat-sort-header="title">Title</th>
+                <th mat-sort-header="castMember">Cast Member</th>
+                <th mat-sort-header="date">Date</th>
+                <th mat-sort-header="reviews">Reviews</th>
+                <th *ngIf="userRoleId == 2">Likes</th>
+                <th *ngIf="userRoleId == 2">Comments</th>
+                <th *ngIf="userRoleId == 1">Edit</th>
+                <th *ngIf="userRoleId == 1">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let movieItem of sortedMovieData; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{movieItem.title}}</td>
+                <td>{{movieItem.castMember}}</td>
+                <td>{{movieItem.date | date}}</td>
+                <td>{{movieItem.reviews}}</td>
+                <td *ngIf="userRoleId == 2">
+                    <div class="d-flex align-items-center">
+                        <mat-icon class="cursor-pointer" [ngClass]="{'activeLike': movieItem.likeCount}"
+                            (click)="likeCount(movieItem)">thumb_up</mat-icon>
+                        <div class="ps-3">{{movieItem.likeCount ?? 0}}</div>
+                    </div>
+                </td>
+                <td *ngIf="userRoleId == 2">
+                    <div *ngIf="!movieItem.Comment; else elseBlock" class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter comment"
+                            aria-label="Recipient' s username" aria-describedby="button-addon2" #inputElement>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+                            (click)="sendCommentValue(inputElement.value, movieItem)">Comment</button>
+                    </div>
+                    <ng-template #elseBlock>
+                        {{movieItem.Comment}}
+                    </ng-template>
+                </td>
+                <td *ngIf="userRoleId == 1">
+                    <div class=" cursor-pointer" (click)="openEditFormDialog(movieItem)">
+                        <mat-icon color="warn">edit</mat-icon>
+                    </div>
+                </td>
+                <td *ngIf="userRoleId == 1">
+                    <div class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                        (click)="sendIdToDelete(movieItem.id ?? 0)">
+                        <mat-icon color="accent">delete</mat-icon>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <mat-paginator [length]="sortedMovieData.length" [pageSizeOptions]="[10, 50, 100]" aria-label="Select page">
+    </mat-paginator>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title mb-1" id="staticBackdropLabel">Delete movie</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body fs-5">
+                are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="delistMovie()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
